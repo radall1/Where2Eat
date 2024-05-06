@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/radall1/PartisanPredictor/master/images/favicon.ico">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PartisanPredictor</title>
+    <title>Boston Where2Eat</title>
     <style>
         body {
             background-color: #f8f9fa;
@@ -21,14 +21,14 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            overflow: hidden;
+            overflow-y: scroll;
             width: 400px;
             max-width: 90%;
             min-height: 400px;
-            display: flex;
+            max-height: 400px;
+            display:flex ;
             flex-direction: column;
             justify-content: flex-end;
-            overflow-y: auto; /* Added */
         }
         .chat {
             padding: 20px;
@@ -64,10 +64,10 @@
 </head>
 <body>
     <div class="chat-container" id="chat-container">
-        <div class="chat">I am a Supreme Court nominee. Ask me a question and I'll tell you if you're a Democrat or a Republican.</div>
-    </div>
-    <div class="user-input">
+        <div class="chat">What type of restaurant are you looking for?</div>
+        <div class="user-input" id="test">
         <input type="text" id="inputField" onkeydown="handleInput(event)" autofocus placeholder="Type your question...">
+        </div>
     </div>
 
     <script>
@@ -81,12 +81,16 @@
         }
 
         function sendInput(userInput) {
-            // Here goes the logic for sending user input and receiving response
-            // For demonstration purposes, let's just add a simple response here
-            var response = "This is a sample response. Replace it with actual logic.";
-            setTimeout(function() {
-                addResponse("Bot: " + response);
-            }, 500);
+            var xhr = new XMLHttpRequest();
+            xhr.open("POST", "/");
+            xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+            xhr.onload = function () {
+                if (xhr.status === 200) {
+                    var response = JSON.parse(xhr.responseText);
+                    addResponse(response.output);
+                }
+            };
+            xhr.send(JSON.stringify({input: userInput}));
         }
 
         function addLine(text) {
@@ -94,8 +98,7 @@
             var chat = document.createElement("div");
             chat.className = "chat";
             chat.innerHTML = text;
-            chatDiv.insertBefore(chat, chatDiv.lastChild);
-            chatDiv.scrollTop = chatDiv.scrollHeight; // Added
+            chatDiv.insertBefore(chat, chatDiv.children["test"]);
         }
 
         function addResponse(text) {
@@ -103,10 +106,21 @@
             var chat = document.createElement("div");
             chat.className = "chat";
             chat.style.textAlign = "right";
-            chat.innerHTML = text;
-            chatDiv.insertBefore(chat, chatDiv.lastChild);
-            chatDiv.scrollTop = chatDiv.scrollHeight; // Added
+            chatDiv.insertBefore(chat, chatDiv.children["test"]);
+            typeText(chat, text);
         }
+
+        function typeText(element, text) {
+            var index = 0;
+            var typingInterval = setInterval(function() {
+                element.innerHTML += text[index];
+                index++;
+                if (index === text.length) {
+                    clearInterval(typingInterval);
+                }
+            }, 50); // Adjust typing speed as needed (milliseconds)
+        }
+
     </script>
 </body>
 </html>
