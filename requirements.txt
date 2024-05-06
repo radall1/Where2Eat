@@ -1,2 +1,8 @@
 Flask
 Gunicorn
+pandas
+numpy
+openai
+ast
+scikit-learn
+scipy
