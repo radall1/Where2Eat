@@ -4,5 +4,6 @@ pandas
 numpy
 openai
 wheel
+tiktoken
 scikit-learn
 scipy
