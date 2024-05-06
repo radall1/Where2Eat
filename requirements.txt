@@ -4,6 +4,5 @@ pandas
 numpy
 openai
 wheel
-ast
 scikit-learn
 scipy
