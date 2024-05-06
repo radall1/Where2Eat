@@ -28,7 +28,6 @@
             max-height: 400px;
             display:flex ;
             flex-direction: column;
-            justify-content: flex-end;
         }
         .chat {
             padding: 20px;
@@ -64,7 +63,7 @@
 </head>
 <body>
     <div class="chat-container" id="chat-container">
-        <div class="chat">What type of restaurant are you looking for?</div>
+        <div class="chat" style="margin-top: auto !important;">What type of restaurant are you looking for? I can only speak for restaurants in Boston.</div>
         <div class="user-input" id="test">
         <input type="text" id="inputField" onkeydown="handleInput(event)" autofocus placeholder="Type your question...">
         </div>
@@ -99,6 +98,7 @@
             chat.className = "chat";
             chat.innerHTML = text;
             chatDiv.insertBefore(chat, chatDiv.children["test"]);
+            scrollToBottom();
         }
 
         function addResponse(text) {
@@ -108,6 +108,7 @@
             chat.style.textAlign = "right";
             chatDiv.insertBefore(chat, chatDiv.children["test"]);
             typeText(chat, text);
+            scrollToBottom();
         }
 
         function typeText(element, text) {
@@ -119,6 +120,11 @@
                     clearInterval(typingInterval);
                 }
             }, 50); // Adjust typing speed as needed (milliseconds)
+        }
+
+        function scrollToBottom() {
+            var chatContainer = document.getElementById("chat-container");
+            chatContainer.scrollTop = chatContainer.scrollHeight;
         }
 
     </script>
