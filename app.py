@@ -21,14 +21,12 @@ def read_secret_file(filename):
     with open(filepath, "r") as file:
         return file.read().strip()
 
-# Get the API key from the secret file
 API_KEY = read_secret_file("openai_api_key.txt")
 
 client = OpenAI(api_key=API_KEY) 
 model = "text-embedding-3-small"
 
-# mini_dataset_files = ["datasets/reviews_with_embeddings_1.csv", "datasets/reviews_with_embeddings_2.csv", "datasets/reviews_with_embeddings_3.csv", "datasets/reviews_with_embeddings_4.csv"]
-mini_dataset_files = ["datasets/reviews_with_embeddings_1.csv"]
+mini_dataset_files = ["datasets/reviews_with_embeddings_1.csv", "datasets/reviews_with_embeddings_2.csv", "datasets/reviews_with_embeddings_3.csv", "datasets/reviews_with_embeddings_4.csv"]
 
 def join_datasets(input_files):
     return pd.concat([pd.read_csv(file) for file in input_files], ignore_index=True)
