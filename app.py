@@ -26,12 +26,7 @@ API_KEY = read_secret_file("openai_api_key.txt")
 client = OpenAI(api_key=API_KEY) 
 model = "text-embedding-3-small"
 
-mini_dataset_files = ["datasets/reviews_with_embeddings_1.csv", "datasets/reviews_with_embeddings_4.csv"]
-
-def join_datasets(input_files):
-    return pd.concat([pd.read_csv(file) for file in input_files], ignore_index=True)
-    
-df = join_datasets(mini_dataset_files)
+df = pd.read_csv("datasets/reviews_with_embeddings_mini.csv")
 df["embedding"] = df.embedding.apply(literal_eval).apply(np.array)
 
 def get_embedding(text, model=model):
