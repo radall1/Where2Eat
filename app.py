@@ -15,7 +15,14 @@ from sklearn.feature_extraction.text import TfidfVectorizer
 app = Flask(__name__)
 
 GPT_MODEL = 'gpt-3.5-turbo'
-API_KEY = os.environ.get('API_KEY')
+
+def read_secret_file(filename):
+    filepath = os.path.join("/etc/secrets", filename)
+    with open(filepath, "r") as file:
+        return file.read().strip()
+
+# Get the API key from the secret file
+API_KEY = read_secret_file("openai_api_key.txt")
 
 client = OpenAI(api_key=API_KEY) 
 model = "text-embedding-3-small"
