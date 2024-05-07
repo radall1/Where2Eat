@@ -4,7 +4,7 @@ Finding a restaurant that meets your expectations is not an easy task. This proj
 
 ## Try It Out Yourself
 
-You can try testing the model yourself by asking it questions [here](https://where2eat-j54y.onrender.com/).
+You can try getting recommendations based on your specifications [here](https://where2eat-j54y.onrender.com/).
 
 ## Blog Post
 
